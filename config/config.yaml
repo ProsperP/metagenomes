@@ -1,0 +1,30 @@
+samples: "fq_list.txt"
+#samples: "test_fq_list.txt"
+
+
+# Parameters for KneadData
+kneaddata:
+    bowtie2_db: "/work/home/prosperp/Databases/genome/Homo_sapiens_hg39_T2T_Bowtie2_v0.1/hg_39"
+    lead_qual: 3
+    trail_qual: 3
+    #adapter: TruSeq2
+    adapter: "/work/share/acqtjvjc9x/20260510_pregnancy_metagenome/mgi_adapters.fa"
+    head_crop: 6
+    min_len: 50
+    window_size: 5
+    avg_quality: 25
+    threads: 16
+
+# Parameters for MetaPhlAn
+metaphlan:
+    db: "/work/home/prosperp/Databases/metaphlan/mpa_vJun23_CHOCOPhlAnSGB_202403/"
+    index: "mpa_vJun23_CHOCOPhlAnSGB_202403"
+    threads: 20
+
+# Parameters for HUMAnN
+humann:
+    threads: 20
+    memory: 100G
+    nucleotide_db: "/work/home/prosperp/Databases/humann/chocophlan/"
+    protein_db: "/work/home/prosperp/Databases/humann/uniref/"
+    map_db: "/work/home/prosperp/Databases/humann/utility_mapping/"

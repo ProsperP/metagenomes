@@ -1,0 +1,51 @@
+import os
+from pathlib import Path
+
+import pandas as pd
+
+
+configfile: "config.yaml"
+
+wf_basedir = workflow.current_basedir
+
+
+samples_dict = {}
+with open(config["samples"], "r") as infh:
+    for line in infh:
+        line = line.rstrip().split('\t')
+        samples_dict.setdefault(line[0], []).append(line[1])
+SAMPLES = list(samples_dict.keys())
+
+
+FUNC_TYPES = ["genefamilies", "pathabundance"]
+MAP_TYPES = ["level4ec", "eggnog", "go", "ko", "pfam"]
+
+
+include: "rules/helpers.smk"
+include: "rules/kneaddata_qc.smk"
+include: "rules/metaphlan.smk"
+include: "rules/humann.smk"
+
+
+rule all:
+    input:
+        expand("01.QC/{sample}/{sample}_paired_1.fastq.gz", sample=SAMPLES),
+        expand("01.QC/{sample}/{sample}_paired_2.fastq.gz", sample=SAMPLES),
+        expand("02.profiles/metaphlan/{sample}/{sample}_profile.txt", sample=SAMPLES),
+        expand("02.profiles/metaphlan_merged_{pr_type}.txt",
+               pr_type=["relative", "count"]),
+        expand("02.profiles/metaphlan_{lv}_{pr_type}.txt",
+               lv=["phylum", "class", "order", "genus", "species", "strain"],
+               pr_type=["relative", "count"]),
+        "02.profiles/humann_genefamilies_cpm.txt",
+        "02.profiles/humann_metacyc_cpm.name.txt",
+        "02.profiles/humann_genefamilies_cpm.name.txt",
+        expand("02.profiles/humann_{map_type}_cpm.txt", map_type=MAP_TYPES),
+        expand("02.profiles/humann_{map_type}_cpm.name.txt", map_type=MAP_TYPES),
+
+
+rule clean:
+    shell:
+        "rm -f"
+        " 01.QC/*/*fq.gz"
+        " 02.profiles/metaphlan/*/*_metaphlan_bowtie2.txt"
