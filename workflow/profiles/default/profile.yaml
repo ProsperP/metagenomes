@@ -1,5 +1,5 @@
 set-threads:
-  kneadata_pe: 16
+  kneaddata_pe: 16
   metaphlan: 20
   humann: 20
   compress_fastq: 10
