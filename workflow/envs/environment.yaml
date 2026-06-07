@@ -8,3 +8,4 @@ dependencies:
   - metaphlan=4.1.1
   - kneaddata=0.12.4
   - snakemake>=8.0.0
+  - snakemake-executor-plugin-slurm
