@@ -22,9 +22,6 @@ rule kneaddata_pe:
     log:
         stdlog = "01.QC/{sample}/{sample}_kneaddata.log",
         stderr = "logs/kneaddata/{sample}_kneaddata.log",
-    threads: config["kneaddata"]["threads"]
-    resources:
-        runtime="12h", mem="50GB"
     shell:
         'export _JAVA_OPTIONS="-Xmx{params.trim_mem}"\n'
         "kneaddata --input1 {input[0]} --input2 {input[1]}"

@@ -1,0 +1,47 @@
+set-threads:
+  kneadata_pe: 16
+  metaphlan: 20
+  humann: 20
+  compress_fastq: 10
+  regroup_table: 2
+
+set-resources:
+  kneaddata_pe:
+    slurm_partition: normal
+    mem: "50GB"
+    runtime: "12h"
+
+  metaphlan:
+    slurm_partition: normal
+    mem: "50GB"
+    runtime: "6h"
+
+  merge_metaphlan:
+    slurm_partition: normal
+    mem_mb: 2000
+    runtime: "3h"
+
+  split_taxnomic_level:
+    slurm_partition: normal
+    mem_mb: 2000
+    runtime: "1h"
+
+  humann:
+    slurm_partition: normal
+    mem: "60GB"
+    runtime: "36h"
+
+  compress_fastq:
+    slurm_partition: normal
+    mem_mb: 400
+    runtime: "3h"
+
+  renorm_humann_table:
+    slurm_partition: normal
+    mem_mb: 2000
+    runtime: "2h"
+
+  regroup_table:
+    slurm_partition: normal
+    mem_mb: 4000
+    runtime: "3h"

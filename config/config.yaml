@@ -3,7 +3,6 @@ samples: "fq_list.txt"
 
 # Parameters for KneadData
 kneaddata:
-    threads: 16
     bowtie2_db: "/work/home/prosperp/Databases/genome/Homo_sapiens_hg39_T2T_Bowtie2_v0.1/hg_39"
     lead_qual: 3
     trail_qual: 3
@@ -15,13 +14,11 @@ kneaddata:
 
 # Parameters for MetaPhlAn
 metaphlan:
-    threads: 20
     db: "/work/home/prosperp/Databases/metaphlan/mpa_vJun23_CHOCOPhlAnSGB_202403/"
     index: "mpa_vJun23_CHOCOPhlAnSGB_202403"
 
 # Parameters for HUMAnN
 humann:
-    threads: 20
     nucleotide_db: "/work/home/prosperp/Databases/humann/chocophlan/"
     protein_db: "/work/home/prosperp/Databases/humann/uniref/"
     map_db: "/work/home/prosperp/Databases/humann/utility_mapping/"

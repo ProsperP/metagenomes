@@ -1,0 +1,6 @@
+partitions:
+  your_partition:
+    max_runtime: "5d"
+    max_nodes: 4656
+    max_threads: 64
+    max_mem_mb_per_cpu: 3634

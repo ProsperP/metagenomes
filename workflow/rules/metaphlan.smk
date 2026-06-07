@@ -11,9 +11,6 @@ rule metaphlan:
     log:
         stdout = "logs/metaphlan/metaphlan_{sample}.log",
         stderr = "logs/metaphlan/metaphlan_{sample}.err",
-    threads: config["metaphlan"]["threads"]
-    resources:
-        runtime="6h", mem="50GB"
     shell:
         "metaphlan {input[0]},{input[1]}"
         " --bowtie2db {params.db}"
@@ -34,8 +31,6 @@ rule merge_metaphlan:
     output:
         "02.profiles/metaphlan_merged_relative.txt",
         "02.profiles/metaphlan_merged_count.txt",
-    resources:
-        runtime="3h", mem_mb=2000
     shell:
         "python {wf_basedir}/scripts/merge_metaphlan_tables.py {input} > {output[0]}\n"
         "python {wf_basedir}/scripts/merge_metaphlan_tables.py"
@@ -51,8 +46,6 @@ rule split_taxnomic_level:
     params:
         lv = lambda wildcards: wildcards.lv,
         pr_type = lambda wildcards: wildcards.pr_type,
-    resources:
-        runtime="1h", mem_mb=2000
     shell:
         "sh {wf_basedir}/scripts/get_specific_level.sh"
         " {input} {params.lv} {output}"

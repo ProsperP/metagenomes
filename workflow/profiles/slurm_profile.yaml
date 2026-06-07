@@ -1,0 +1,53 @@
+# -----------------------------------------------------------------------------
+# Executor
+# -----------------------------------------------------------------------------
+executor: slurm
+
+# -----------------------------------------------------------------------------
+# Job control
+# -----------------------------------------------------------------------------
+# Maximum number of simultaneously running jobs.
+jobs: 50
+
+max-jobs-per-second: 5
+max-status-checks-per-second: 0.5
+
+# -----------------------------------------------------------------------------
+# Fault torlerance
+# -----------------------------------------------------------------------------
+retries: 1
+
+latency-wait: 120
+
+# Keep going with independent jobs even if some jobs fail.
+keep-going: True
+
+# -----------------------------------------------------------------------------
+# Default Slurm resource settings
+# These are overridden by per-rule `resources:` blocks in the workflow.
+# -----------------------------------------------------------------------------
+default-resources:
+  slurm_account: slurm_account_name
+  slurm_partition: normal
+
+  runtime: "120h"
+  # CPUs per task
+  threads: 1
+  mem_mb: attempt * 1800
+
+# -----------------------------------------------------------------------------
+# Slurm-specific submission options
+# -----------------------------------------------------------------------------
+slurm-keep-successful-logs: False
+slurm-efficiency-report: True
+
+# -----------------------------------------------------------------------------
+# Rerun behavior
+# -----------------------------------------------------------------------------
+rerun-incomplete: True
+
+# -----------------------------------------------------------------------------
+# Reporting / verbosity
+# -----------------------------------------------------------------------------
+printshellcmds: False
+show-failed-logs: True

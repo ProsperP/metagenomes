@@ -16,9 +16,6 @@ rule humann:
         prot_db = config["humann"]["protein_db"],
     log:
         "logs/humann/humann_{sample}.log"
-    threads: config["humann"]["threads"]
-    resources:
-        runtime="36h", mem="60GB"
     shell:
         "cat {input[0]} {input[1]} > {output.temp_fq}\n"
         "humann"
@@ -44,9 +41,6 @@ rule compress_fastq:
     output:
         "01.QC/{sample}/{sample}_paired_1.fastq.gz",
         "01.QC/{sample}/{sample}_paired_2.fastq.gz",
-    threads: 10
-    resources:
-        runtime="3h", mem_mb=400
     priority: 20
     shell:
         "pigz --processes {threads} {input[0]} {input[1]}"
@@ -61,8 +55,6 @@ rule renorm_humann_table:
         "02.profiles/humann/{sample}/{sample}_pathabundance_cpm.tsv",
     params:
         units = "cpm",
-    resources:
-        runtime="2h", mem_mb=2000
     shell:
         "humann_renorm_table"
         " --input {input[0]}"
@@ -81,9 +73,6 @@ rule regroup_table:
         "02.profiles/humann/{sample}/{sample}_{map_type,[a-z4]+}_cpm.tsv",
     params:
         map_db = get_map_file,
-    threads: 2
-    resources:
-        runtime="3h", mem_mb=4000
     shell:
         "humann_regroup_table"
         " --input {input}"
